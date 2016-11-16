@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Demo</title>
+</head>
+<body>
+    <script src="jquery.min.js"></script>
+    <script src="underscore-min.js"></script>
+    <script src="bar2.js"></script>
+    <style>
+      .chart {
+        width: 1000px;
+        background-color:gray;
+      }
+      .chart div.bar {
+        font: 10px sans-serif;
+        /*background-color: red;*/
+        text-align: right;
+        padding: 3px;
+        /*margin: 1px;*/
+        color: white;
+      }
+
+
+    </style>
+    <div id = "r" style="display:none"></div>
+    <div class="chart" id="chart1"></div>
+    <hr/>
+    <div class="chart" id="chart2"></div>
+    <script>
+
+    var url="http://localhost:8000/test.html";
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'html',
+      success: function(res) {
+        var pagehtml=$.parseHTML(res)
+        $('div#r').append(pagehtml);
+        var $tds = $('div#r').find('table tbody tr td');
+        var states=[];
+        console.log("Length",$tds.length);
+        //Only want 50 states + DC. 3 cols per state
+        var k=0;
+        var thisstate=null;
+        for (var i=0;i<51*3; i++){
+          if (i % 3 === 0) {
+            //console.log("State", $($tds[i]).text());
+            states[k]={};
+            thisstate = states[k];
+            thisstate['name'] = $($tds[i]).text().trim();
+        } else if (i % 3 === 1){
+            thisstate['obama'] = $($tds[i]).text().trim().replace('%','');
+            thisstate['obama'] = parseInt(thisstate['obama']);
+        } else if (i % 3 === 2){
+            thisstate['romney'] = $($tds[i]).text().trim().replace('%','');
+            thisstate['romney'] = parseInt(thisstate['romney']);
+            k = k+1;
+          }
+        }
+        console.log(states)
+        bar = new Bar($('#chart1'), "red")
+        bar.setSortBy('obama');
+        bar.setSizeBy('romney');
+        bar.plot(states);
+        bar2 = new Bar($('#chart2'), "blue")
+        bar2.setSortBy('romney');
+        bar2.setSizeBy('obama');
+        bar2.plot(states);
+      }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Demo</title>
+</head>
+<body>
+    <a href="http://jquery.com/">jQuery</a>
+    <script src="jquery.min.js"></script>
+    <div id="buttons1">
+      <button id="button1">11</button>
+      <button id="button2">12</button>
+    </div>
+    <div id="buttons2">
+      <button>21</button>
+      <button>22</button>
+    </div>
+    <div id="buttons3">
+      <button>31</button>
+      <button>32</button>
+    </div>
+    <script>
+
+    $( "#buttons1" ).find('button').each(function( index ) {
+        console.log( index + ": " + $( this ).text() );
+        $(this).on("click", function(){
+          console.log("clicked",$(this).text());
+          return false;
+        });
+    });
+    //wrong value of i is obtained
+    var $twobuttons = $( "#buttons2" ).find('button');
+    console.log("twobuttons",$twobuttons);
+    for(i=0;i<$twobuttons.length;i++){
+      $($twobuttons[i]).click(function(){
+        console.log("clicked in second row",i, "text", $(this).text());
+        return false;
+      });
+    }
+    // create a closure to capture i
+    mycallback = function (i) {
+      return function(){
+        console.log("clicked in third row",i, "text", $(this).text());
+        return false;
+      }
+    };
+    $threebuttons = $( "#buttons3" ).find('button');
+    console.log("threebuttons",$threebuttons);
+    for(i=0;i<$threebuttons.length;i++){
+      $($threebuttons[i]).click(mycallback(i));
+    }
+    </script>
+</body>
+</html>

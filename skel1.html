@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Demo</title>
+</head>
+<body>
+    <a href="http://jquery.com/">jQuery</a>
+    <a href="https://github.com/rahuldave/lab-jquery">https://github.com/rahuldave/lab-jquery</a>
+    <a href="http://api.jquery.com/category/selectors/">selectors</a>
+    <hr/>
+    <ul class="funkylist" id="mylist">
+      <li>One</li>
+      <li>Two</li>
+      <li>Three</li>
+    </ul>
+    <hr/>
+    <ul>
+      <li>A</li>
+      <li>B</li>
+    </ul>
+    <hr/>
+    <span>Span 1</span>
+    <span>Span 2</span>
+    <hr/>
+    <div>
+      <span>Span 3 inside a div</span>
+    </div>
+    <div>
+      <span>Span 4 inside a div</span>
+    </div>
+    <div>
+      <p>
+        <span>Span 5 inside a p inside a div</span>
+      </p>
+    </div>
+    <script src="jquery.min.js"></script>
+    <script>
+
+      $( document ).ready(function() {
+        var j=100;
+        console.log("DOM is ready");
+        console.log("ul", $('ul'));
+        console.log(".funkylist", $('.funkylist'));
+        console.log("ul.funkylist", $('ul.funkylist'));
+        console.log("#mylist", $('#mylist'));
+        console.log("li", $('li'));
+        console.log("span", $('span'));
+        console.log("ul li", $("ul li"));
+        console.log("div span", $("div span"));
+        console.log("I", "am", "crazy",j);
+        console.log("div > span", $("div > span"));
+        console.log("find spans in div", $( "div" ).find( "span" ));
+        //returns a jquery object that represents a list of spans
+        $( "div" ).find( "span" ).css( "background-color", "red" );
+        $( "div" ).find( "span" ).attr( "class","crazy" );
+        console.log("craziness", $( "div" ).find( "span" ).attr( "class"));
+        //note this is set to the DOM element inside the function.
+        $( "li" ).each(function( index ) {
+            console.log( index + ": " + $( this ).text() );
+        });
+      });
+
+      window.onload = function () {
+        console.log("Window is loaded");
+      }
+
+    </script>
+</body>
+</html>
