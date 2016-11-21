@@ -20,8 +20,10 @@
       <button>32</button>
     </div>
     <script>
+    console.log("this is", this)
 
     $( "#buttons1" ).find('button').each(function( index ) {
+        console.log("this is", this)
         console.log( index + ": " + $( this ).text() );
         $(this).on("click", function(){
           console.log("clicked",$(this).text());
@@ -32,14 +34,17 @@
     var $twobuttons = $( "#buttons2" ).find('button');
     console.log("twobuttons",$twobuttons);
     for(i=0;i<$twobuttons.length;i++){
+        // loop does not do the i matching
       $($twobuttons[i]).click(function(){
+         console.log("this is", this)
         console.log("clicked in second row",i, "text", $(this).text());
         return false;
       });
     }
     // create a closure to capture i
-    mycallback = function (i) {
+    mycallbackmaker = function (i) {
       return function(){
+        console.log("this in function returned from mycallbackmaker", this)
         console.log("clicked in third row",i, "text", $(this).text());
         return false;
       }
@@ -47,7 +52,8 @@
     $threebuttons = $( "#buttons3" ).find('button');
     console.log("threebuttons",$threebuttons);
     for(i=0;i<$threebuttons.length;i++){
-      $($threebuttons[i]).click(mycallback(i));
+        //get the right this and the right i
+      $($threebuttons[i]).click(mycallbackmaker(i));
     }
     </script>
 </body>

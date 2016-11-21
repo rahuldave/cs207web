@@ -56,7 +56,9 @@
         $( "div" ).find( "span" ).attr( "class","crazy" );
         console.log("craziness", $( "div" ).find( "span" ).attr( "class"));
         //note this is set to the DOM element inside the function.
+        console.log("this is", this)
         $( "li" ).each(function( index ) {
+            console.log(">this is", this)
             console.log( index + ": " + $( this ).text() );
         });
       });
@@ -64,6 +66,7 @@
       window.onload = function () {
         console.log("Window is loaded");
       }
+      console.log("<this is", this)
 
     </script>
 </body>

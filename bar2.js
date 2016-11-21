@@ -1,6 +1,6 @@
 //Can use object literals if we dont want encapsulation
 var Bar = function ($domelement, color) {
-
+  console.log("this is in bar", this)
   this.privatesortby = "sortkey";
   this.privatesizeby = "sizekey";
   this.$privateDomElement = $domelement;
